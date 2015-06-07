@@ -27,12 +27,6 @@ class Game
     gets.chomp.capitalize
   end
 
-  def self.testing
-    sj = HumanPlayer.new("sj")
-    thomas  = HumanPlayer.new("thomas")
-    Game.new(sj, thomas).play
-  end
-
   def initialize(player1, player2)
     @player1 = player1
     @player2 = player2
@@ -68,7 +62,6 @@ class Game
       board.move(move[0],move[1], current_player.color)
     rescue
       p $!
-       # p $!, *$@
       retry
     end
   end
@@ -112,3 +105,5 @@ class Game
   end
 
 end
+
+Game.new_game

@@ -64,8 +64,6 @@ class Board
   end
 
   def move!(start, end_pos)
-    # for checking if move will leave player in check
-    # only called in a pieces#valid_moves
     raise "NO PIECE HERE" if self[start].nil?
     piece = self[start]
     raise "CAN'T MOVE THERE" unless piece.moves.include?(end_pos)
@@ -155,48 +153,42 @@ class Board
     end
   end
 
+  def place_pawns
+    8.times do |i|
+      Pawn.new(:white, [1,i], self)
+      Pawn.new(:black, [6,i], self)
+    end
+  end
 
+  def place_bishops
+    Bishop.new(:white, [0,2], self)
+    Bishop.new(:white, [0,5], self)
+    Bishop.new(:black, [7,2], self)
+    Bishop.new(:black, [7,5], self)
+  end
 
+  def place_knights
+    Knight.new(:white, [0,1], self)
+    Knight.new(:white, [0,6], self)
+    Knight.new(:black, [7,1], self)
+    Knight.new(:black, [7,6], self)
+  end
 
-  #beginning placement methods
-  # will be private
-#  private
-      def place_pawns
-        8.times do |i|
-          Pawn.new(:white, [1,i], self)
-          Pawn.new(:black, [6,i], self)
-        end
-      end
+  def place_rooks
+    Rook.new(:white, [0,0], self)
+    Rook.new(:white, [0,7], self)
+    Rook.new(:black, [7,0], self)
+    Rook.new(:black, [7,7], self)
+  end
 
-      def place_bishops
-        Bishop.new(:white, [0,2], self)
-        Bishop.new(:white, [0,5], self)
-        Bishop.new(:black, [7,2], self)
-        Bishop.new(:black, [7,5], self)
-      end
+  def place_kings
+    King.new(:white, [0,3], self)
+    King.new(:black, [7,3], self)
+  end
 
-      def place_knights
-        Knight.new(:white, [0,1], self)
-        Knight.new(:white, [0,6], self)
-        Knight.new(:black, [7,1], self)
-        Knight.new(:black, [7,6], self)
-      end
-
-      def place_rooks
-        Rook.new(:white, [0,0], self)
-        Rook.new(:white, [0,7], self)
-        Rook.new(:black, [7,0], self)
-        Rook.new(:black, [7,7], self)
-      end
-
-      def place_kings
-        King.new(:white, [0,3], self)
-        King.new(:black, [7,3], self)
-      end
-
-      def place_queens
-        Queen.new(:white, [0,4], self)
-        Queen.new(:black, [7,4], self)
-      end
+  def place_queens
+    Queen.new(:white, [0,4], self)
+    Queen.new(:black, [7,4], self)
+  end
 
 end
